@@ -69,6 +69,7 @@
         <hr>
          <form method="get" action="loginadmin">
         <input type="text" class="bg-light form-control mx-auto" placeholder="Username" name="admin" id="login_input">
+         <input type="text" class="bg-light form-control mx-auto" placeholder="Password" name="password" id="login_input">
         <button class="btn btn-secondary my-3" style="border-radius:4rem;width:6rem;" type="submit">Login</button>
         </form>
         ${status}

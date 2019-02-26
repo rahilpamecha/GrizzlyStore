@@ -41,8 +41,9 @@ public class LoginAdminServletClass extends HttpServlet {
 		try {
 			PreparedStatement statement=
 					connection.prepareStatement("select * from cust_auth "
-							+ "where admin=?");
+							+ "where admin=? and password=?");
 			statement.setInt(1,admin);
+			statement.setInt(1,password);
 			ResultSet resultSet=statement.executeQuery();
 			boolean loginResult=false;
 			while(resultSet.next()){
@@ -51,8 +52,10 @@ public class LoginAdminServletClass extends HttpServlet {
 			if(count<=3){
 			if(loginResult){
 				request.setAttribute("admin",admin);
+				request.setAttribute("password",password);
 				HttpSession session=request.getSession(true);
 				session.setAttribute("admin",admin );
+				session.setAttribute("password",password );
 				RequestDispatcher dispatcher=request.getRequestDispatcher("menu.jsp");
 				dispatcher.forward(request,response);
 			}else{
