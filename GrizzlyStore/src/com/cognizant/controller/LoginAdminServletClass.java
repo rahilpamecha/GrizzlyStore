@@ -22,7 +22,7 @@ import com.cognizant.helper.ConnectionManager;
 public class LoginAdminServletClass extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ConnectionManager manager=new ConnectionManager();
-	
+	private static int count=0;
     /**
      * Default constructor. 
      */
@@ -37,6 +37,7 @@ public class LoginAdminServletClass extends HttpServlet {
 		// TODO Auto-generated method stub
 		Connection connection=manager.openConnection();
 		int admin=Integer.parseInt(request.getParameter("admin"));
+		
 		try {
 			PreparedStatement statement=
 					connection.prepareStatement("select * from cust_auth "
@@ -47,6 +48,7 @@ public class LoginAdminServletClass extends HttpServlet {
 			while(resultSet.next()){
 				loginResult=true;
 			}
+			if(count<=3){
 			if(loginResult){
 				request.setAttribute("admin",admin);
 				HttpSession session=request.getSession(true);
@@ -55,12 +57,19 @@ public class LoginAdminServletClass extends HttpServlet {
 				dispatcher.forward(request,response);
 			}else{
 				RequestDispatcher dispatcher=request.getRequestDispatcher("LoginAdmin.jsp");
-				request.setAttribute("status","Product Add Failed");
+				request.setAttribute("status","Login failed");
 				dispatcher.forward(request,response);
-
+                count++;
 				
 			}
-		} catch (SQLException e) {
+		}
+			else{
+				RequestDispatcher dispatcher=request.getRequestDispatcher("LoginAdmin.jsp");
+				request.setAttribute("status","Account Locked");
+				dispatcher.forward(request,response);
+				
+			}
+		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

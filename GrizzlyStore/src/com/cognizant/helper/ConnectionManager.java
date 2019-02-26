@@ -19,7 +19,7 @@ public class ConnectionManager {
 		
 		try {
 			connection=DriverManager.getConnection("jdbc:oracle:"
-					+ "thin:@localhost:1521:ORCL","sabbir","sabbir");
+					+ "thin:@localhost:1521:xe","RAHILPAMECHA","ENTERPASSWORD");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
