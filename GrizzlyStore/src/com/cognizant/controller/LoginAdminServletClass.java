@@ -37,13 +37,13 @@ public class LoginAdminServletClass extends HttpServlet {
 		// TODO Auto-generated method stub
 		Connection connection=manager.openConnection();
 		int admin=Integer.parseInt(request.getParameter("admin"));
-		
+		int password=Integer.parseInt(request.getParameter("password"));
 		try {
 			PreparedStatement statement=
 					connection.prepareStatement("select * from cust_auth "
 							+ "where admin=? and password=?");
 			statement.setInt(1,admin);
-			statement.setInt(1,password);
+			statement.setInt(2,password);
 			ResultSet resultSet=statement.executeQuery();
 			boolean loginResult=false;
 			while(resultSet.next()){
